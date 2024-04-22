@@ -46,7 +46,7 @@ CHALLENGE_SELECTORS = [
     # Fairlane / pararius.com
     'div.vc div.text-box h2'
 ]
-SHORT_TIMEOUT = 5
+SHORT_TIMEOUT = 10
 SESSIONS_STORAGE = SessionsStorage()
 
 
@@ -397,7 +397,7 @@ def _evil_logic(req: V1RequestBase, driver: WebDriver, method: str) -> Challenge
                     break
 
                 # update the html (cloudflare reloads the page every 5 s)
-                html_element = driver.find_element(By.TAG_NAME, "html")
+                html_element = driver.find_element(By.TAG_NAME, "title")
 
         # waits until cloudflare redirection ends
         logging.debug("Waiting for redirect")
