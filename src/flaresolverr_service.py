@@ -251,6 +251,24 @@ def _resolve_challenge(req: V1RequestBase, method: str) -> ChallengeResolutionT:
 
 def click_verify(driver: WebDriver):
     try:
+        logging.debug("Try to find the Cloudflare 'Verify you are human' button...")
+        button = driver.find_element(
+            by=By.XPATH,
+            value="//input[@type='button' and @value='Verify you are human']",
+        )
+        if button:
+            actions = ActionChains(driver)
+            actions.move_to_element_with_offset(button, 5, 7)
+            actions.click(button)
+            actions.perform()
+            logging.debug("The Cloudflare 'Verify you are human' button found and clicked!")
+            logging.debug("waiting 5s")
+            time.sleep(5)
+            return True
+    except Exception:
+        logging.debug("The Cloudflare 'Verify you are human' button not found on the page.")
+
+    try:
         logging.debug("Try to find the Cloudflare verify checkbox...")
         iframe = driver.find_element(By.XPATH, "//iframe[starts-with(@id, 'cf-chl-widget-')]")
         driver.switch_to.frame(iframe)
@@ -271,24 +289,6 @@ def click_verify(driver: WebDriver):
         logging.debug("Cloudflare verify checkbox not found on the page.")
     finally:
         driver.switch_to.default_content()
-
-    try:
-        logging.debug("Try to find the Cloudflare 'Verify you are human' button...")
-        button = driver.find_element(
-            by=By.XPATH,
-            value="//input[@type='button' and @value='Verify you are human']",
-        )
-        if button:
-            actions = ActionChains(driver)
-            actions.move_to_element_with_offset(button, 5, 7)
-            actions.click(button)
-            actions.perform()
-            logging.debug("The Cloudflare 'Verify you are human' button found and clicked!")
-            logging.debug("waiting 5s")
-            time.sleep(5)
-            return True
-    except Exception:
-        logging.debug("The Cloudflare 'Verify you are human' button not found on the page.")
 
     time.sleep(5)
     return False
