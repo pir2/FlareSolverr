@@ -266,7 +266,7 @@ def click_verify(driver: WebDriver):
             logging.debug("Cloudflare verify checkbox found and clicked!")
             logging.debug("waiting 5s")
             time.sleep(5)
-            return
+            return True
     except Exception:
         logging.debug("Cloudflare verify checkbox not found on the page.")
     finally:
@@ -286,11 +286,12 @@ def click_verify(driver: WebDriver):
             logging.debug("The Cloudflare 'Verify you are human' button found and clicked!")
             logging.debug("waiting 5s")
             time.sleep(5)
-            return
+            return True
     except Exception:
         logging.debug("The Cloudflare 'Verify you are human' button not found on the page.")
 
     time.sleep(5)
+    return False
 
 
 def get_correct_window(driver: WebDriver) -> WebDriver:
@@ -392,7 +393,8 @@ def _evil_logic(req: V1RequestBase, driver: WebDriver, method: str) -> Challenge
             except TimeoutException:
                 logging.debug("Timeout waiting for selector")
 
-                click_verify(driver)
+                if click_verify(driver):
+                    break
 
                 # update the html (cloudflare reloads the page every 5 s)
                 html_element = driver.find_element(By.TAG_NAME, "html")
