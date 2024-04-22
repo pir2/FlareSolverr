@@ -409,7 +409,7 @@ def _evil_logic(req: V1RequestBase, driver: WebDriver, method: str) -> Challenge
 
         logging.debug("Waiting for 10s")
         time.sleep(10)
-        driver.get(req.url)
+        driver.refresh()
         logging.debug(driver.page_source)
         logging.info("Challenge solved!")
         res.message = "Challenge solved!"
