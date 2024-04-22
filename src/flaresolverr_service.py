@@ -264,6 +264,7 @@ def click_verify(driver: WebDriver):
             actions.click(checkbox)
             actions.perform()
             logging.debug("Cloudflare verify checkbox found and clicked!")
+            logging.debug("waiting 5s")
             time.sleep(5)
             break
     except Exception:
@@ -283,6 +284,7 @@ def click_verify(driver: WebDriver):
             actions.click(button)
             actions.perform()
             logging.debug("The Cloudflare 'Verify you are human' button found and clicked!")
+            logging.debug("waiting 5s")
             time.sleep(5)
             break
     except Exception:
