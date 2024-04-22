@@ -407,7 +407,8 @@ def _evil_logic(req: V1RequestBase, driver: WebDriver, method: str) -> Challenge
         except Exception:
             logging.debug("Timeout waiting for redirect")
 
-        WebDriverWait(driver, SHORT_TIMEOUT)
+        logging.debug("Waiting for 10s")
+        time.sleep(10)
         logging.info("Challenge solved!")
         res.message = "Challenge solved!"
     else:
