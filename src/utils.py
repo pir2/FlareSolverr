@@ -136,8 +136,8 @@ def get_webdriver(proxy: dict = None) -> WebDriver:
     # https://github.com/microsoft/vscode/issues/127800#issuecomment-873342069
     # https://peter.sh/experiments/chromium-command-line-switches/#use-gl
     options.add_argument('--use-gl=swiftshader')
-
-    language = os.environ.get('LANG', None)
+    options.add_argument('--user-agent=Mozilla/5.0 (Linux; Android 13; SM-G530BT) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36')
+    language = os.environ.get('LANG', 'en-US')
     if language is not None:
         options.add_argument('--accept-lang=%s' % language)
 
